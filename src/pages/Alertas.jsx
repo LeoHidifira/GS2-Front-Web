@@ -2,6 +2,7 @@ import AlertBanner from '../components/AlertBanner.jsx'
 import Button from '../components/Button.jsx'
 import EmptyState from '../components/EmptyState.jsx'
 import ErrorMessage from '../components/ErrorMessage.jsx'
+import Icone from '../components/Icone.jsx'
 import Loader from '../components/Loader.jsx'
 import TipsList from '../components/TipsList.jsx'
 import { NIVEIS } from '../constants/riscos.js'
@@ -28,27 +29,32 @@ export default function Alertas() {
     nivelMinimo: preferencias.nivelMinimo,
   })
 
-  const nomes = acompanhadas.map((r) => r.nome).join(', ')
-
   return (
     <div>
-      <h1 className="font-titulo text-3xl md:text-4xl font-bold">Alertas</h1>
+      <p className="sobrescrito text-tinta/60">Seus bairros</p>
+      <h1 className="mt-3 text-4xl md:text-6xl font-light leading-[1.05] tracking-tight">Alertas</h1>
       {acompanhadas.length > 0 && (
-        <p className="mt-1 text-marinho/80">
-          {nomes} ·{' '}
-          <Button para="/bairros" variante="texto" tamanho="pequeno">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          {acompanhadas.map((r) => (
+            <span key={r.id} className="rounded-full bg-white/70 border border-tinta/10 px-3.5 py-1.5 text-sm font-medium">
+              {r.nome}
+            </span>
+          ))}
+          <Button para="/bairros" variante="texto" tamanho="pequeno" className="ml-1">
             mudar
           </Button>
-        </p>
+        </div>
       )}
 
-      <div className="mt-6 space-y-8">
+      <div className="mt-8 space-y-8">
         {carregandoRegioes && <Loader />}
         {erroRegioes && <ErrorMessage mensagem={erroRegioes} onTentarDeNovo={recarregarRegioes} />}
 
         {!carregandoRegioes && !erroRegioes && !preferencias.alertasLigados && (
-          <EmptyState titulo="Seus alertas estão desligados." descricao="Ligue para saber quando o calor ficar perigoso.">
-            <Button para="/bairros">Ligar alertas</Button>
+          <EmptyState titulo="Seus alertas estão desligados." descricao="Ligue para saber quando o calor ficar perigoso." icone="alerta">
+            <Button para="/bairros" seta>
+              Ligar alertas
+            </Button>
           </EmptyState>
         )}
 
@@ -64,7 +70,7 @@ export default function Alertas() {
             )}
             {!loading &&
               alertas.map((alerta) => (
-                <div key={alerta.regiaoId} className="grid gap-6 md:grid-cols-[3fr_2fr] md:gap-10">
+                <div key={alerta.regiaoId} className="grid gap-6 lg:grid-cols-[7fr_5fr] lg:gap-8">
                   <AlertBanner
                     nivel={alerta.nivel}
                     classeFundo={NIVEIS[alerta.nivel].classeFundo}
@@ -79,12 +85,19 @@ export default function Alertas() {
           </>
         )}
 
-        <p className="border-t border-marinho/15 pt-4">
-          Tontura, enjoo ou dor de cabeça forte?{' '}
-          <a href={`tel:${TELEFONE_SAMU}`} className="font-semibold underline underline-offset-4">
-            Ligue {TELEFONE_SAMU} (SAMU)
-          </a>
-        </p>
+        <a
+          href={`tel:${TELEFONE_SAMU}`}
+          className="group flex items-center gap-4 rounded-[1.75rem] bg-floresta text-creme px-5 py-4 hover:bg-floresta-escuro transition-colors"
+        >
+          <span className="grid place-items-center shrink-0 w-12 h-12 rounded-2xl bg-creme/10">
+            <Icone nome="telefone" className="w-5 h-5" />
+          </span>
+          <span className="flex-1">
+            <span className="block font-semibold">Tontura, enjoo ou dor de cabeça forte?</span>
+            <span className="block text-sm text-creme/75">Ligue {TELEFONE_SAMU} (SAMU)</span>
+          </span>
+          <Icone nome="abrir" className="w-5 h-5 shrink-0" />
+        </a>
       </div>
     </div>
   )

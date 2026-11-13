@@ -70,9 +70,16 @@ export default function PainelRegioes() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-titulo text-3xl font-bold">Regiões monitoradas</h1>
-        {!editando && <Button onClick={() => setEditando({})}>Nova região</Button>}
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="sobrescrito text-tinta/60">Painel</p>
+          <h1 className="mt-2 text-4xl md:text-5xl font-light tracking-tight">Regiões <em className="text-terra">monitoradas</em></h1>
+        </div>
+        {!editando && (
+          <Button onClick={() => setEditando({})} seta>
+            Nova região
+          </Button>
+        )}
       </div>
 
       <StatusMessage mensagem={mensagem} />
@@ -103,7 +110,7 @@ export default function PainelRegioes() {
           )}
         </div>
         {editando && (
-          <div className="order-first lg:order-last lg:sticky lg:top-20">
+          <div className="order-first lg:order-last lg:sticky lg:top-28">
             <RegionForm
               key={editando.id ?? 'nova'}
               valoresIniciais={editando}

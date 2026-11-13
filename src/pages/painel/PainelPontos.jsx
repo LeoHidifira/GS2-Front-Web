@@ -73,10 +73,13 @@ export default function PainelPontos() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-titulo text-3xl font-bold">Pontos de apoio</h1>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="sobrescrito text-tinta/60">Painel</p>
+          <h1 className="mt-2 text-4xl md:text-5xl font-light tracking-tight">Pontos de apoio</h1>
+        </div>
         {!editando && (
-          <Button onClick={() => setEditando({})} disabled={carregandoRegioes}>
+          <Button onClick={() => setEditando({})} disabled={carregandoRegioes} seta>
             Novo ponto
           </Button>
         )}
@@ -110,7 +113,7 @@ export default function PainelPontos() {
           )}
         </div>
         {editando && (
-          <div className="order-first lg:order-last lg:sticky lg:top-20">
+          <div className="order-first lg:order-last lg:sticky lg:top-28">
             <SupportPointForm
               key={editando.id ?? 'novo'}
               valoresIniciais={

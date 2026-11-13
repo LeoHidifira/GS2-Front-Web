@@ -1,14 +1,11 @@
 import { NavLink, Outlet } from 'react-router'
 import Header from '../components/Header.jsx'
+import Icone from '../components/Icone.jsx'
 import ScrollToTop from '../components/ScrollToTop.jsx'
+import Button from '../components/Button.jsx'
 import { NAVEGACAO_PAINEL } from '../constants/textos.js'
 
-const classeLink = ({ isActive }) =>
-  `block px-3 py-2 font-semibold whitespace-nowrap border-b-2 md:border-b-0 md:border-l-2 ${
-    isActive ? 'border-sol-escuro text-marinho' : 'border-transparent text-marinho/70 hover:text-marinho'
-  }`
-
-// Layout do painel do administrador: menu lateral no desktop e abas no celular
+// Layout do painel do administrador: trilho lateral flutuante no desktop e abas em pílula no celular
 export default function PainelLayout() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -16,27 +13,38 @@ export default function PainelLayout() {
       <Header
         inicio="/painel"
         complemento={
-          <NavLink to="/" className="text-sm font-semibold underline underline-offset-4 rounded">
+          <Button para="/" variante="secundario" tamanho="pequeno">
+            <Icone nome="voltar" className="w-4 h-4" />
             Voltar ao app
-          </NavLink>
+          </Button>
         }
       />
-      <div className="flex-1 w-full max-w-7xl mx-auto md:flex">
-        <aside className="md:w-52 md:shrink-0 md:border-r border-marinho/15 px-4 pt-4 md:py-8">
-          <p className="hidden md:block text-sm text-marinho/70 mb-2 px-3">Administração</p>
-          <nav aria-label="Menu do painel">
-            <ul className="flex md:flex-col gap-4 md:gap-1 overflow-x-auto border-b border-marinho/15 md:border-b-0">
-              {NAVEGACAO_PAINEL.map((link) => (
-                <li key={link.para}>
-                  <NavLink to={link.para} className={classeLink}>
-                    {link.rotulo}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
+      <div className="flex-1 w-full max-w-7xl mx-auto px-4 pt-6 md:pt-10 pb-10 md:flex md:gap-8">
+        <aside className="md:w-56 md:shrink-0">
+          <div className="md:sticky md:top-28 vidro shadow-suave rounded-full md:rounded-[2rem] p-1.5 md:p-3">
+            <p className="hidden md:block sobrescrito text-tinta/60 px-3 pt-2 pb-3">Administração</p>
+            <nav aria-label="Menu do painel">
+              <ul className="flex md:flex-col gap-1">
+                {NAVEGACAO_PAINEL.map((link) => (
+                  <li key={link.para} className="flex-1 md:flex-none">
+                    <NavLink
+                      to={link.para}
+                      className={({ isActive }) =>
+                        `flex items-center justify-center md:justify-start gap-2.5 rounded-full px-4 py-2.5 font-medium whitespace-nowrap transition-colors ${
+                          isActive ? 'bg-floresta text-creme shadow-suave' : 'text-tinta/75 hover:bg-white/80 hover:text-tinta'
+                        }`
+                      }
+                    >
+                      <Icone nome={link.icone} className="w-5 h-5" />
+                      {link.rotulo}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         </aside>
-        <main id="conteudo" className="flex-1 min-w-0 px-4 py-6 md:px-8 md:py-8">
+        <main id="conteudo" className="flex-1 min-w-0 pt-6 md:pt-0">
           <Outlet />
         </main>
       </div>

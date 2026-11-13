@@ -1,5 +1,5 @@
+import { Link } from 'react-router'
 import AlertBanner from '../components/AlertBanner.jsx'
-import Button from '../components/Button.jsx'
 import EmptyState from '../components/EmptyState.jsx'
 import ErrorMessage from '../components/ErrorMessage.jsx'
 import Icone from '../components/Icone.jsx'
@@ -17,6 +17,32 @@ import { TELEFONE_SAMU } from '../constants/textos.js'
 import { escolherRegiaoAtual } from '../utils/regioes.js'
 import { formatarHora, formatarTemperatura } from '../utils/formatos.js'
 import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
+
+// Atalho redondo, como os botões de ação de um app de serviço
+function Atalho({ para, href, icone, rotulo }) {
+  const classes = 'group flex flex-col items-center gap-2 text-sm font-medium text-center rounded-2xl'
+  const conteudo = (
+    <>
+      <span className="grid place-items-center w-16 h-16 md:w-[4.5rem] md:h-[4.5rem] rounded-[1.4rem] vidro shadow-suave group-hover:bg-white transition-colors">
+        <Icone nome={icone} className="w-6 h-6" />
+      </span>
+      {rotulo}
+    </>
+  )
+  return (
+    <li>
+      {para ? (
+        <Link to={para} className={classes}>
+          {conteudo}
+        </Link>
+      ) : (
+        <a href={href} className={classes}>
+          {conteudo}
+        </a>
+      )}
+    </li>
+  )
+}
 
 // Tela inicial: risco de calor do bairro, sem precisar rolar a página (RF01, RF06)
 export default function Inicio() {
@@ -38,16 +64,23 @@ export default function Inicio() {
   }
 
   return (
-    <div className="space-y-5">
-      <h1 className="sr-only">Calor no seu bairro</h1>
-      <RegionSelect regioes={regioesAtivas} valor={regiao.id} onChange={(id) => atualizar('bairroAtualId', id)} />
+    <div className="space-y-6 md:space-y-8">
+      <header>
+        <p className="sobrescrito text-tinta/60">
+          Calor agora <span aria-hidden="true">—</span> São Paulo
+        </p>
+        <h1 className="mt-3 text-4xl md:text-6xl font-light leading-[1.05] tracking-tight">Como está o calor em</h1>
+        <div className="mt-1">
+          <RegionSelect regioes={regioesAtivas} valor={regiao.id} onChange={(id) => atualizar('bairroAtualId', id)} />
+        </div>
+      </header>
 
       {alerta && (
         <AlertBanner compacto nivel={alerta.nivel} classeFundo={NIVEIS[alerta.nivel].classeFundo} titulo={alerta.titulo} />
       )}
 
       {aviso && (
-        <p role="status" className="border-l-4 border-amber-500 bg-white px-4 py-2 text-sm font-semibold">
+        <p role="status" className="rounded-2xl bg-risco-atencao/70 px-5 py-3 text-sm font-semibold">
           {aviso}
         </p>
       )}
@@ -56,8 +89,8 @@ export default function Inicio() {
       {erroClima && <ErrorMessage mensagem={erroClima} onTentarDeNovo={recarregarClima} />}
 
       {clima && risco && (
-        <div className="grid gap-6 md:grid-cols-[3fr_2fr] md:gap-10">
-          <div className="space-y-5">
+        <div className="grid gap-6 lg:grid-cols-[7fr_5fr] lg:gap-8">
+          <div className="space-y-6">
             <RiskCard
               temperatura={formatarTemperatura(clima.atual.temperatura)}
               sensacao={formatarTemperatura(risco.sensacao)}
@@ -67,22 +100,33 @@ export default function Inicio() {
               mensagem={risco.mensagem}
               atualizadoEm={formatarHora(clima.atual.horario)}
             />
-            <Button para="/mapa" tamanho="grande" largura>
-              Onde me refrescar
-              <Icone nome="rota" />
-            </Button>
+
+            <nav aria-label="Atalhos">
+              <ul className="grid grid-cols-4 gap-2">
+                <Atalho para="/mapa" icone="mapa" rotulo="Refrescar" />
+                <Atalho para={`/historico/${regiao.id}`} icone="grafico" rotulo="7 dias" />
+                <Atalho para="/alertas" icone="alerta" rotulo="Alertas" />
+                <Atalho href={`tel:${TELEFONE_SAMU}`} icone="telefone" rotulo={`SAMU ${TELEFONE_SAMU}`} />
+              </ul>
+            </nav>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-6">
             <TipsList dicas={risco.dicas} />
-            <nav aria-label="Mais informações" className="border-t border-marinho/15 pt-4 flex flex-col items-start gap-1">
-              <Button para={`/historico/${regiao.id}`} variante="texto">
-                Ver os últimos 7 dias em {regiao.nome}
-              </Button>
-              <Button href={`tel:${TELEFONE_SAMU}`} variante="texto">
-                Passou mal? Ligue {TELEFONE_SAMU} (SAMU)
-              </Button>
-            </nav>
+
+            <Link
+              to="/mapa"
+              className="group flex items-center gap-4 rounded-[1.75rem] bg-salvia/60 hover:bg-salvia px-5 py-4 transition-colors"
+            >
+              <span className="grid place-items-center shrink-0 w-12 h-12 rounded-2xl bg-white/60 text-musgo">
+                <Icone nome="folha" className="w-6 h-6" />
+              </span>
+              <span className="flex-1">
+                <span className="block font-semibold">Sombra e água por perto</span>
+                <span className="block text-sm text-tinta/75">Veja os pontos de apoio perto de {regiao.nome}.</span>
+              </span>
+              <Icone nome="abrir" className="w-5 h-5 shrink-0 transition-transform group-hover:translate-x-0.5" />
+            </Link>
           </div>
         </div>
       )}
