@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import * as regioesService from '../services/regioesService.js'
 import { normalizarRegiao, ordenarPorNome, prepararRegiao } from '../utils/regioes.js'
+import { mensagemDeErro } from '../utils/erros.js'
 
 // Lista, cria, edita e exclui regiões; controla loading/error (RF08)
 export default function useRegioes() {
@@ -53,10 +54,4 @@ export default function useRegioes() {
   const regioesAtivas = regioes.filter((r) => r.ativo)
 
   return { regioes, regioesAtivas, loading, error, recarregar, criar, atualizar, excluir }
-}
-
-export function mensagemDeErro(erro, acao) {
-  if (erro?.semConexao) return `Sem internet agora. Não deu para ${acao}.`
-  if (erro?.message?.includes('VITE_API_URL')) return erro.message
-  return `Não deu para ${acao}. Tente de novo em instantes.`
 }

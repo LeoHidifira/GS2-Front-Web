@@ -51,3 +51,13 @@ export function prepararRegiao(valores) {
 export function ordenarPorNome(lista) {
   return [...lista].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'))
 }
+
+// Bairro mostrado na tela inicial: o escolhido pela pessoa, senão o piloto (Capão Redondo), senão o primeiro
+export function escolherRegiaoAtual(regioes, idPreferido) {
+  if (regioes.length === 0) return null
+  return (
+    regioes.find((r) => r.id === idPreferido) ??
+    regioes.find((r) => r.nome.toLowerCase().includes('capão redondo')) ??
+    regioes[0]
+  )
+}

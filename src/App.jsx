@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
+import { PreferenciasProvider } from './hooks/usePreferencias.jsx'
 import AppLayout from './layouts/AppLayout.jsx'
 import PainelLayout from './layouts/PainelLayout.jsx'
 import Inicio from './pages/Inicio.jsx'
@@ -13,23 +14,25 @@ import NaoEncontrada from './pages/NaoEncontrada.jsx'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/alertas" element={<Alertas />} />
-          <Route path="/mapa" element={<Mapa />} />
-          <Route path="/pontos/:id" element={<DetalhePonto />} />
-          <Route path="/historico/:regiaoId" element={<Historico />} />
-          <Route path="/bairros" element={<MeusBairros />} />
-          <Route path="*" element={<NaoEncontrada />} />
-        </Route>
-        <Route path="/painel" element={<PainelLayout />}>
-          <Route index element={<Navigate to="regioes" replace />} />
-          <Route path="regioes" element={<PainelRegioes />} />
-          <Route path="pontos" element={<PainelPontos />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <PreferenciasProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/alertas" element={<Alertas />} />
+            <Route path="/mapa" element={<Mapa />} />
+            <Route path="/pontos/:id" element={<DetalhePonto />} />
+            <Route path="/historico/:regiaoId" element={<Historico />} />
+            <Route path="/bairros" element={<MeusBairros />} />
+            <Route path="*" element={<NaoEncontrada />} />
+          </Route>
+          <Route path="/painel" element={<PainelLayout />}>
+            <Route index element={<Navigate to="regioes" replace />} />
+            <Route path="regioes" element={<PainelRegioes />} />
+            <Route path="pontos" element={<PainelPontos />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </PreferenciasProvider>
   )
 }
