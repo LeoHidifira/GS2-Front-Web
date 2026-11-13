@@ -22,11 +22,11 @@ Aplicação web da **Solara**, desenvolvida para a Global Solution 2026.2 da FIA
 
 | Nome completo | RM |
 |---|---|
-| _preencher_ | _preencher_ |
-| _preencher_ | _preencher_ |
-| _preencher_ | _preencher_ |
+| _André Peixoto Cano_ | _RM570429_ |
+| _Gabriel Do Dantos Perine Tardelli_ | _RM569751_ |
+| _Leonardo Yuiti Hidifira_ | _RM569519_ |
 
-Turma: _preencher_
+Turma: _ESPT_
 
 ## 3. Tecnologias
 
