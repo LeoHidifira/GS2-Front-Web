@@ -1,0 +1,119 @@
+{
+  "regioes": [
+    { "id": "1", "nome": "Capão Redondo", "bairro": "Capão Redondo", "latitude": -23.6719, "longitude": -46.7794, "ativo": true },
+    { "id": "2", "nome": "Campo Limpo", "bairro": "Campo Limpo", "latitude": -23.6328, "longitude": -46.7594, "ativo": true },
+    { "id": "3", "nome": "Centro", "bairro": "Sé", "latitude": -23.5503, "longitude": -46.6339, "ativo": true },
+    { "id": "4", "nome": "Pinheiros", "bairro": "Pinheiros", "latitude": -23.5673, "longitude": -46.702, "ativo": true },
+    { "id": "5", "nome": "Paraisópolis", "bairro": "Vila Andrade", "latitude": -23.617, "longitude": -46.7215, "ativo": true }
+  ],
+  "pontos": [
+    {
+      "id": "1",
+      "nome": "UBS Vila Nova",
+      "endereco": "Rua Exemplo, 120 - Capão Redondo",
+      "regiaoId": "1",
+      "latitude": -23.6702,
+      "longitude": -46.7771,
+      "horario": "07:00-19:00",
+      "recursos": ["agua", "sombra", "banheiro"],
+      "situacao": "publicado",
+      "avisosFechado": []
+    },
+    {
+      "id": "2",
+      "nome": "Praça da Matriz",
+      "endereco": "Rua Exemplo, 45 - Capão Redondo",
+      "regiaoId": "1",
+      "latitude": -23.6748,
+      "longitude": -46.7822,
+      "horario": "24h",
+      "recursos": ["sombra", "agua"],
+      "situacao": "publicado",
+      "avisosFechado": []
+    },
+    {
+      "id": "3",
+      "nome": "Biblioteca do bairro",
+      "endereco": "Rua Exemplo, 300 - Campo Limpo",
+      "regiaoId": "2",
+      "latitude": -23.6341,
+      "longitude": -46.7612,
+      "horario": "09:00-18:00",
+      "recursos": ["agua", "sombra", "banheiro"],
+      "situacao": "publicado",
+      "avisosFechado": []
+    },
+    {
+      "id": "4",
+      "nome": "Estação de hidratação da Praça",
+      "endereco": "Rua Exemplo, 10 - Sé",
+      "regiaoId": "3",
+      "latitude": -23.5508,
+      "longitude": -46.6345,
+      "horario": "08:00-20:00",
+      "recursos": ["agua"],
+      "situacao": "publicado",
+      "avisosFechado": []
+    },
+    {
+      "id": "5",
+      "nome": "Centro Cultural do bairro",
+      "endereco": "Rua Exemplo, 220 - Sé",
+      "regiaoId": "3",
+      "latitude": -23.5482,
+      "longitude": -46.6371,
+      "horario": "10:00-21:00",
+      "recursos": ["sombra", "banheiro", "agua"],
+      "situacao": "publicado",
+      "avisosFechado": []
+    },
+    {
+      "id": "6",
+      "nome": "Largo arborizado",
+      "endereco": "Rua Exemplo, 88 - Pinheiros",
+      "regiaoId": "4",
+      "latitude": -23.5661,
+      "longitude": -46.7031,
+      "horario": "24h",
+      "recursos": ["sombra"],
+      "situacao": "publicado",
+      "avisosFechado": []
+    },
+    {
+      "id": "7",
+      "nome": "CEU do bairro",
+      "endereco": "Rua Exemplo, 500 - Vila Andrade",
+      "regiaoId": "5",
+      "latitude": -23.6181,
+      "longitude": -46.7199,
+      "horario": "07:00-22:00",
+      "recursos": ["agua", "sombra", "banheiro"],
+      "situacao": "publicado",
+      "avisosFechado": []
+    },
+    {
+      "id": "8",
+      "nome": "Igreja da comunidade",
+      "endereco": "Rua Exemplo, 75 - Capão Redondo",
+      "regiaoId": "1",
+      "latitude": -23.6733,
+      "longitude": -46.7759,
+      "horario": "",
+      "recursos": ["sombra"],
+      "situacao": "rascunho",
+      "avisosFechado": []
+    },
+    {
+      "id": "9",
+      "nome": "Bebedouro do terminal",
+      "endereco": "Rua Exemplo, 15 - Campo Limpo",
+      "regiaoId": "2",
+      "latitude": -23.6302,
+      "longitude": -46.7577,
+      "horario": "05:00-23:00",
+      "recursos": ["agua", "banheiro"],
+      "situacao": "a_confirmar",
+      "avisosFechado": []
+    }
+  ]
+}
