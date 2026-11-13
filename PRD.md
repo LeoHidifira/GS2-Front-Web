@@ -194,15 +194,20 @@ No celular, a navegação inferior fica fixa: **Início · Mapa · Alertas · Ba
 ### 7.1 Design tokens (configurar no Tailwind)
 | Token | Cor | Uso |
 |---|---|---|
-| `sol` | `#E8662A` | Destaques, nível Alto |
-| `sol-escuro` | `#A6441A` | Texto laranja sobre fundo claro |
-| `marinho` | `#1E2430` | Texto principal, botões primários |
-| `creme` | `#FBF7F0` | Fundo |
-| `areia` | `#F2EADF` | Fundo secundário, cards |
+| `floresta` | `#1F3D2F` | Botões primários, cartão de destaque, navegação ativa |
+| `floresta-escuro` | `#142A20` | Hover dos botões, rodapé |
+| `musgo` | `#3E6B50` | Ícones de apoio |
+| `salvia` | `#C8D7C4` | Faixas de aviso suave, barras do gráfico |
+| `nevoa` | `#E6EAE1` | Fundo de pílulas e chips |
+| `creme` | `#F4F2EC` | Fundo |
+| `tinta` | `#17221C` | Texto principal |
+| `terra` | `#8A5A3B` | Palavra em destaque nos títulos, foco |
 
-Cores dos níveis (sempre com o nome escrito ao lado): Baixo verde `#D9E6D2` · Atenção amarelo `#F9E3A7` · Alto laranja `#F7C7A3` · Extremo vermelho `#E9A39B`, todas com texto `#1E2430`.
+Estilo: cartões de vidro fosco (utilitário `vidro`), cantos bem arredondados, navegação em pílula e botões com bolinha de seta. No celular, navegação inferior flutuante com o botão "Refrescar" redondo no meio.
 
-Fontes: **Space Grotesk** nos títulos e **Public Sans** no texto (Google Fonts). Texto base de pelo menos 16 px, com opção de aumentar.
+Cores dos níveis (sempre com o nome escrito ao lado): Baixo verde `#D4E5CC` · Atenção amarelo `#F6E2A4` · Alto laranja `#F5C6A0` · Extremo vermelho `#E8A298`, todas com texto `#17221C`.
+
+Fontes: **Fraunces** nos títulos e **Outfit** no texto (Google Fonts). Texto base de pelo menos 16 px, com opção de aumentar.
 
 Logo: `public/logo-solara.png` (versão sem as bordas brancas).
 
