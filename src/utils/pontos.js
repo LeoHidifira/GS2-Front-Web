@@ -109,7 +109,7 @@ export function estaAbertoAgora(horario, agora = Date.now()) {
 
 export function formatarHorario(horario) {
   if (!horario?.trim()) return 'Horário não informado'
-  if (horario.trim().toLowerCase() === '24h') return 'Aberto 24 horas'
+  if (horario.trim().toLowerCase() === '24h') return '24 horas'
   const partes = horario.trim().match(FORMATO_HORARIO)
   if (!partes) return horario
   const hora = (h, m) => (m === '00' ? `${Number(h)}h` : `${Number(h)}h${m}`)
