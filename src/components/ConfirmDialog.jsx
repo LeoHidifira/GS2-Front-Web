@@ -29,7 +29,7 @@ export default function ConfirmDialog({ aberto, titulo, mensagem, textoConfirmar
         aria-modal="true"
         aria-labelledby="confirmacao-titulo"
         aria-describedby="confirmacao-mensagem"
-        className="bg-creme rounded-2xl p-6 max-w-md w-full shadow-xl"
+        className="bg-creme rounded-lg p-6 max-w-md w-full shadow-xl border border-marinho/20"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 id="confirmacao-titulo" className="text-xl font-bold">

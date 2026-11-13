@@ -1,8 +1,8 @@
-// Recursos oferecidos pelos pontos de apoio. O ícone é decorativo: o nome sempre aparece escrito.
+// Recursos oferecidos pelos pontos de apoio. O ícone (nome em Icone.jsx) é decorativo: o nome sempre aparece escrito.
 export const RECURSOS = {
-  agua: { id: 'agua', nome: 'Água', icone: '💧' },
-  sombra: { id: 'sombra', nome: 'Sombra', icone: '🌳' },
-  banheiro: { id: 'banheiro', nome: 'Banheiro', icone: '🚻' },
+  agua: { id: 'agua', nome: 'Água', icone: 'agua' },
+  sombra: { id: 'sombra', nome: 'Sombra', icone: 'sombra' },
+  banheiro: { id: 'banheiro', nome: 'Banheiro', icone: 'banheiro' },
 }
 
 export const LISTA_RECURSOS = Object.values(RECURSOS)

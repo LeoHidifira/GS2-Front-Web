@@ -1,4 +1,4 @@
-// Ícones simples em SVG. São decorativos: o texto ao lado sempre explica o que significam.
+// Ícones de traço em SVG. São decorativos: o texto ao lado sempre explica o que significam.
 const caminhos = {
   inicio: 'M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5',
   mapa: 'M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11Zm0-8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
@@ -7,6 +7,10 @@ const caminhos = {
   telefone: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z',
   voltar: 'M15 5l-7 7 7 7',
   rota: 'M5 12h14M13 6l6 6-6 6',
+  agua: 'M12 3.5s-6 6.6-6 11a6 6 0 0 0 12 0c0-4.4-6-11-6-11Z',
+  sombra: 'M12 21v-4M12 3 5.5 13h3L6 17h12l-2.5-4h3L12 3Z',
+  banheiro: 'M7 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM17 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM5 9h4v6H8v5H6v-5H5V9ZM15 9h4l1.5 6H18v5h-2v-5h-2.5L15 9ZM12 3v18',
+  relogio: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 7v5l3 2',
 }
 
 export default function Icone({ nome, className = 'w-6 h-6' }) {
@@ -15,7 +19,7 @@ export default function Icone({ nome, className = 'w-6 h-6' }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}

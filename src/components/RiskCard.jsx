@@ -1,38 +1,35 @@
-import RiskBadge from './RiskBadge.jsx'
-
-// Cartão principal com temperatura, sensação térmica e nível de risco (RF01)
-export default function RiskCard({ bairro, temperatura, sensacao, umidade, nivel, classeFundo, mensagem, atualizadoEm }) {
+// Condição atual e nível de risco do bairro (RF01): temperatura em destaque e faixa de risco
+export default function RiskCard({ temperatura, sensacao, umidade, rotuloNivel, classeFundo, mensagem, atualizadoEm }) {
   return (
-    <section aria-labelledby="titulo-risco" className={`rounded-3xl p-5 border border-marinho/10 ${classeFundo}`}>
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-sm font-semibold">Agora em</p>
-          <h1 id="titulo-risco" className="text-2xl font-bold leading-tight">
-            {bairro}
-          </h1>
-        </div>
-        <RiskBadge nivel={nivel} tamanho="grande" />
-      </div>
-
-      <div className="mt-4 flex items-end gap-4">
-        <p className="font-titulo text-6xl font-bold leading-none">
+    <section aria-labelledby="titulo-risco">
+      <h2 id="titulo-risco" className="sr-only">
+        Calor agora
+      </h2>
+      <div className="flex items-end justify-between gap-4 pb-4">
+        <p className="font-titulo text-7xl md:text-8xl font-bold leading-none tracking-tight tabular-nums">
           {temperatura}
           <span className="sr-only"> de temperatura</span>
         </p>
-        <dl className="pb-1">
-          <div className="flex gap-1">
-            <dt>Sensação:</dt>
-            <dd className="font-bold">{sensacao}</dd>
+        <dl className="text-right text-marinho/85 pb-1 leading-relaxed">
+          <div>
+            <dt className="inline">Sensação </dt>
+            <dd className="inline font-semibold text-marinho">{sensacao}</dd>
           </div>
-          <div className="flex gap-1">
-            <dt>Umidade:</dt>
-            <dd className="font-bold">{umidade}</dd>
+          <div>
+            <dt className="inline">Umidade </dt>
+            <dd className="inline font-semibold text-marinho">{umidade}</dd>
+          </div>
+          <div className="text-sm">
+            <dt className="inline">Atualizado às </dt>
+            <dd className="inline">{atualizadoEm}</dd>
           </div>
         </dl>
       </div>
 
-      <p className="mt-4 text-lg font-semibold">{mensagem}</p>
-      <p className="mt-2 text-sm">Atualizado às {atualizadoEm}</p>
+      <div className={`-mx-4 md:mx-0 px-4 py-4 border-y-2 md:border-2 border-marinho/80 ${classeFundo}`}>
+        <p className="font-titulo text-2xl font-bold">Risco {rotuloNivel}</p>
+        <p className="mt-1 text-lg">{mensagem}</p>
+      </div>
     </section>
   )
 }

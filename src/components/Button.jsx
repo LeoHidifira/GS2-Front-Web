@@ -1,11 +1,11 @@
 import { Link } from 'react-router'
 
 const variantes = {
-  primario: 'bg-marinho text-creme hover:bg-marinho/90',
-  destaque: 'bg-sol-escuro text-white hover:bg-sol-escuro/90',
-  secundario: 'bg-areia text-marinho hover:bg-areia/70 border border-marinho/15',
+  primario: 'bg-marinho text-creme hover:bg-black',
+  destaque: 'bg-sol-escuro text-white hover:bg-[#8a3814]',
+  secundario: 'bg-transparent text-marinho border border-marinho/40 hover:border-marinho hover:bg-white',
   perigo: 'bg-red-800 text-white hover:bg-red-900',
-  texto: 'text-marinho underline underline-offset-4 hover:bg-areia',
+  texto: 'text-marinho underline underline-offset-4 decoration-marinho/40 hover:decoration-marinho',
 }
 
 const tamanhos = {
@@ -26,10 +26,10 @@ export default function Button({
   ...props
 }) {
   const classes = [
-    'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-colors',
+    'inline-flex items-center gap-2 rounded-md font-semibold transition-colors',
     'disabled:opacity-50 disabled:cursor-not-allowed',
-    tamanhos[tamanho],
-    largura ? 'w-full' : '',
+    variante === 'texto' ? 'px-0 py-1' : tamanhos[tamanho],
+    largura ? 'w-full justify-between' : 'justify-center',
     variantes[variante],
     className,
   ].join(' ')

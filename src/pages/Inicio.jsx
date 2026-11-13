@@ -2,6 +2,7 @@ import AlertBanner from '../components/AlertBanner.jsx'
 import Button from '../components/Button.jsx'
 import EmptyState from '../components/EmptyState.jsx'
 import ErrorMessage from '../components/ErrorMessage.jsx'
+import Icone from '../components/Icone.jsx'
 import Loader from '../components/Loader.jsx'
 import RegionSelect from '../components/RegionSelect.jsx'
 import RiskCard from '../components/RiskCard.jsx'
@@ -12,6 +13,7 @@ import useNivelDeRisco from '../hooks/useNivelDeRisco.js'
 import usePreferencias from '../hooks/usePreferencias.jsx'
 import useRegioes from '../hooks/useRegioes.js'
 import { NIVEIS } from '../constants/riscos.js'
+import { TELEFONE_SAMU } from '../constants/textos.js'
 import { escolherRegiaoAtual } from '../utils/regioes.js'
 import { formatarHora, formatarTemperatura } from '../utils/formatos.js'
 import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
@@ -29,57 +31,60 @@ export default function Inicio() {
     nivelMinimo: preferencias.nivelMinimo,
   })
 
-  if (carregandoRegioes) return <Loader texto="Carregando seu bairro..." />
+  if (carregandoRegioes) return <Loader />
   if (erroRegioes) return <ErrorMessage mensagem={erroRegioes} onTentarDeNovo={recarregar} />
   if (!regiao) {
-    return <EmptyState titulo="Nenhum bairro cadastrado ainda." descricao="Os bairros aparecem aqui assim que forem cadastrados no painel." />
+    return <EmptyState titulo="Nenhum bairro cadastrado ainda." descricao="Os bairros aparecem aqui depois de cadastrados no painel." />
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
+      <h1 className="sr-only">Calor no seu bairro</h1>
       <RegionSelect regioes={regioesAtivas} valor={regiao.id} onChange={(id) => atualizar('bairroAtualId', id)} />
 
       {alerta && (
-        <AlertBanner
-          compacto
-          nivel={alerta.nivel}
-          classeFundo={NIVEIS[alerta.nivel].classeFundo}
-          titulo={alerta.titulo}
-          ate={alerta.ate}
-        />
+        <AlertBanner compacto nivel={alerta.nivel} classeFundo={NIVEIS[alerta.nivel].classeFundo} titulo={alerta.titulo} />
       )}
 
       {aviso && (
-        <p role="status" className="bg-areia rounded-xl px-4 py-2 text-sm font-semibold">
+        <p role="status" className="border-l-4 border-amber-500 bg-white px-4 py-2 text-sm font-semibold">
           {aviso}
         </p>
       )}
 
-      {carregandoClima && !clima && <Loader texto="Buscando o clima agora..." />}
+      {carregandoClima && !clima && <Loader texto="Buscando o clima..." />}
       {erroClima && <ErrorMessage mensagem={erroClima} onTentarDeNovo={recarregarClima} />}
 
       {clima && risco && (
-        <>
-          <RiskCard
-            bairro={regiao.nome}
-            temperatura={formatarTemperatura(clima.atual.temperatura)}
-            sensacao={formatarTemperatura(risco.sensacao)}
-            umidade={`${Math.round(clima.atual.umidade)}%`}
-            nivel={risco.nivel}
-            classeFundo={risco.classeFundo}
-            mensagem={risco.mensagem}
-            atualizadoEm={formatarHora(clima.atual.horario)}
-          />
-          <Button para="/mapa" variante="primario" tamanho="grande" largura>
-            Onde me refrescar
-          </Button>
-          <TipsList dicas={risco.dicas} />
-          <p className="text-center">
-            <Button para={`/historico/${regiao.id}`} variante="texto">
-              Ver o calor dos últimos 7 dias
+        <div className="grid gap-6 md:grid-cols-[3fr_2fr] md:gap-10">
+          <div className="space-y-5">
+            <RiskCard
+              temperatura={formatarTemperatura(clima.atual.temperatura)}
+              sensacao={formatarTemperatura(risco.sensacao)}
+              umidade={`${Math.round(clima.atual.umidade)}%`}
+              rotuloNivel={risco.rotulo}
+              classeFundo={risco.classeFundo}
+              mensagem={risco.mensagem}
+              atualizadoEm={formatarHora(clima.atual.horario)}
+            />
+            <Button para="/mapa" tamanho="grande" largura>
+              Onde me refrescar
+              <Icone nome="rota" />
             </Button>
-          </p>
-        </>
+          </div>
+
+          <div className="space-y-5">
+            <TipsList dicas={risco.dicas} />
+            <nav aria-label="Mais informações" className="border-t border-marinho/15 pt-4 flex flex-col items-start gap-1">
+              <Button para={`/historico/${regiao.id}`} variante="texto">
+                Ver os últimos 7 dias em {regiao.nome}
+              </Button>
+              <Button href={`tel:${TELEFONE_SAMU}`} variante="texto">
+                Passou mal? Ligue {TELEFONE_SAMU} (SAMU)
+              </Button>
+            </nav>
+          </div>
+        </div>
       )}
     </div>
   )

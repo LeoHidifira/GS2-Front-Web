@@ -1,15 +1,16 @@
 import { SITUACOES } from '../constants/recursos.js'
 
 const cores = {
-  rascunho: 'bg-areia',
-  publicado: 'bg-risco-baixo',
-  a_confirmar: 'bg-risco-atencao',
+  rascunho: 'bg-marinho/30',
+  publicado: 'bg-green-700',
+  a_confirmar: 'bg-amber-500',
 }
 
-// Selo com a situação do ponto de apoio, sempre escrita
+// Situação do ponto de apoio, sempre escrita
 export default function SituationBadge({ situacao }) {
   return (
-    <span className={`inline-block rounded-full px-2.5 py-0.5 text-sm font-semibold border border-marinho/15 ${cores[situacao]}`}>
+    <span className="inline-flex items-center gap-1.5 text-sm whitespace-nowrap">
+      <span className={`w-2 h-2 rounded-full ${cores[situacao]}`} aria-hidden="true" />
       {SITUACOES[situacao]?.nome ?? situacao}
     </span>
   )

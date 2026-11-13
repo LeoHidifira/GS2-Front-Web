@@ -1,23 +1,17 @@
 // Orientações de proteção para o nível de risco (RF06)
 export default function TipsList({ titulo = 'Como se proteger', dicas }) {
   return (
-    <section aria-labelledby="titulo-dicas" className="bg-areia rounded-2xl p-5">
-      <h2 id="titulo-dicas" className="text-lg font-bold">
+    <section aria-labelledby="titulo-dicas" className="border-t border-marinho/15 pt-4">
+      <h2 id="titulo-dicas" className="font-semibold">
         {titulo}
       </h2>
-      <ol className="mt-3 space-y-2">
-        {dicas.map((dica, i) => (
-          <li key={dica} className="flex gap-3">
-            <span
-              className="shrink-0 w-7 h-7 rounded-full bg-marinho text-creme flex items-center justify-center text-sm font-bold"
-              aria-hidden="true"
-            >
-              {i + 1}
-            </span>
-            <span className="pt-0.5">{dica}</span>
+      <ul className="mt-2 divide-y divide-marinho/10">
+        {dicas.map((dica) => (
+          <li key={dica} className="py-2.5 pl-4 relative before:content-[''] before:absolute before:left-0 before:top-[1.15rem] before:w-2 before:h-0.5 before:bg-sol-escuro">
+            {dica}
           </li>
         ))}
-      </ol>
+      </ul>
     </section>
   )
 }

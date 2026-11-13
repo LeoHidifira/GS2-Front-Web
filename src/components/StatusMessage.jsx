@@ -1,11 +1,11 @@
 // Mensagem de retorno após uma ação (salvou, excluiu, deu erro)
 export default function StatusMessage({ mensagem }) {
   return (
-    <div aria-live="polite" className="min-h-0">
+    <div aria-live="polite">
       {mensagem && (
         <p
-          className={`rounded-xl px-4 py-3 font-semibold ${
-            mensagem.tipo === 'erro' ? 'bg-risco-extremo/60' : 'bg-risco-baixo'
+          className={`border-l-4 bg-white px-4 py-3 font-semibold ${
+            mensagem.tipo === 'erro' ? 'border-red-800' : 'border-green-700'
           }`}
         >
           {mensagem.texto}

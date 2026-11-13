@@ -1,25 +1,25 @@
 import { Link, NavLink } from 'react-router'
-import { SLOGAN } from '../constants/textos.js'
 
 // Cabeçalho com a logo. No desktop também mostra a navegação principal.
 export default function Header({ links = [], inicio = '/', complemento }) {
   return (
-    <header className="bg-creme/95 backdrop-blur border-b border-areia sticky top-0 z-20">
-      <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        <Link to={inicio} className="flex items-center gap-3 rounded-lg">
-          <img src="/logo-solara.png" alt="Solara" className="h-11 w-auto" />
-          <span className="hidden sm:block text-sm text-marinho/80 max-w-48 leading-tight">{SLOGAN}</span>
+    <header className="bg-creme border-b border-marinho/15 sticky top-0 z-20">
+      <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+        <Link to={inicio} className="flex items-center rounded">
+          <img src="/logo-solara.png" alt="Solara, página inicial" className="h-10 w-auto" />
         </Link>
         {links.length > 0 && (
-          <nav aria-label="Navegação principal" className="hidden md:block">
-            <ul className="flex gap-1">
+          <nav aria-label="Navegação principal" className="hidden md:block h-full">
+            <ul className="flex gap-6 h-full">
               {links.map((link) => (
-                <li key={link.para}>
+                <li key={link.para} className="h-full">
                   <NavLink
                     to={link.para}
                     end={link.para === '/'}
                     className={({ isActive }) =>
-                      `px-3 py-2 rounded-lg font-semibold ${isActive ? 'bg-marinho text-creme' : 'hover:bg-areia'}`
+                      `h-full flex items-center border-b-2 font-semibold ${
+                        isActive ? 'border-sol-escuro' : 'border-transparent text-marinho/75 hover:text-marinho'
+                      }`
                     }
                   >
                     {link.rotulo}
