@@ -151,7 +151,7 @@ Fluxo dos dados: `services/` → `hooks/` → `pages/` → `components/`. Compon
 
 ### Componentes
 
-`Header`, `BottomNav`, `Button`, `Icone`, `Loader`, `EmptyState`, `ErrorMessage`, `StatusMessage`, `RiskCard`, `RiskBadge`, `AlertBanner`, `TipsList`, `RegionSelect`, `SupportPointCard`, `ResourceList`, `SituationBadge`, `FilterChips`, `TemperatureChart`, `RegionForm`, `SupportPointForm`, `FormField`, `DataTable`, `ConfirmDialog`, `Toggle`, `OptionGroup`, `ScrollToTop`.
+`Header`, `BottomNav`, `Footer`, `Button`, `Icone`, `Loader`, `EmptyState`, `ErrorMessage`, `StatusMessage`, `RiskCard`, `RiskBadge`, `AlertBanner`, `TipsList`, `RegionSelect`, `SupportPointCard`, `ResourceList`, `SituationBadge`, `FilterChips`, `TemperatureChart`, `RegionForm`, `SupportPointForm`, `FormField`, `DataTable`, `ConfirmDialog`, `Toggle`, `OptionGroup`, `ScrollToTop`.
 
 ## Privacidade
 
