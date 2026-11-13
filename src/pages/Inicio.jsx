@@ -1,3 +1,4 @@
+import AlertBanner from '../components/AlertBanner.jsx'
 import Button from '../components/Button.jsx'
 import EmptyState from '../components/EmptyState.jsx'
 import ErrorMessage from '../components/ErrorMessage.jsx'
@@ -5,10 +6,12 @@ import Loader from '../components/Loader.jsx'
 import RegionSelect from '../components/RegionSelect.jsx'
 import RiskCard from '../components/RiskCard.jsx'
 import TipsList from '../components/TipsList.jsx'
+import useAlertaDaRegiao from '../hooks/useAlertaDaRegiao.js'
 import useClima from '../hooks/useClima.js'
 import useNivelDeRisco from '../hooks/useNivelDeRisco.js'
 import usePreferencias from '../hooks/usePreferencias.jsx'
 import useRegioes from '../hooks/useRegioes.js'
+import { NIVEIS } from '../constants/riscos.js'
 import { escolherRegiaoAtual } from '../utils/regioes.js'
 import { formatarHora, formatarTemperatura } from '../utils/formatos.js'
 
@@ -19,6 +22,10 @@ export default function Inicio() {
   const regiao = escolherRegiaoAtual(regioesAtivas, preferencias.bairroAtualId)
   const { clima, loading: carregandoClima, error: erroClima, aviso, recarregar: recarregarClima } = useClima(regiao)
   const risco = useNivelDeRisco(clima?.atual.temperatura, clima?.atual.umidade)
+  const alerta = useAlertaDaRegiao(regiao, clima, {
+    ligado: preferencias.alertasLigados,
+    nivelMinimo: preferencias.nivelMinimo,
+  })
 
   if (carregandoRegioes) return <Loader texto="Carregando seu bairro..." />
   if (erroRegioes) return <ErrorMessage mensagem={erroRegioes} onTentarDeNovo={recarregar} />
@@ -29,6 +36,16 @@ export default function Inicio() {
   return (
     <div className="space-y-4">
       <RegionSelect regioes={regioesAtivas} valor={regiao.id} onChange={(id) => atualizar('bairroAtualId', id)} />
+
+      {alerta && (
+        <AlertBanner
+          compacto
+          nivel={alerta.nivel}
+          classeFundo={NIVEIS[alerta.nivel].classeFundo}
+          titulo={alerta.titulo}
+          ate={alerta.ate}
+        />
+      )}
 
       {aviso && (
         <p role="status" className="bg-areia rounded-xl px-4 py-2 text-sm font-semibold">
