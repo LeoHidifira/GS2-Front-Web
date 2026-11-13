@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+/* Design tokens da Solara (PRD 7.1) */
+@theme {
+  --color-sol: #E8662A;
+  --color-sol-escuro: #A6441A;
+  --color-marinho: #1E2430;
+  --color-creme: #FBF7F0;
+  --color-areia: #F2EADF;
+
+  --color-risco-baixo: #D9E6D2;
+  --color-risco-atencao: #F9E3A7;
+  --color-risco-alto: #F7C7A3;
+  --color-risco-extremo: #E9A39B;
+
+  --font-titulo: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* O tamanho base da letra pode ser aumentado em "Meus bairros" */
+html {
+  font-size: 16px;
+}
+html[data-fonte="grande"] {
+  font-size: 18px;
+}
+html[data-fonte="muito-grande"] {
+  font-size: 20px;
+}
+
+body {
+  @apply bg-creme text-marinho font-sans antialiased;
+}
+
+h1, h2, h3 {
+  @apply font-titulo;
+}
+
+/* Foco sempre visível (acessibilidade) */
+:focus-visible {
+  outline: 3px solid var(--color-sol-escuro);
+  outline-offset: 2px;
+}
