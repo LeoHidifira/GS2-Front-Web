@@ -1,15 +1,15 @@
-// Grupo de opções de escolha única (rádios em formato de seletor segmentado)
+// Grupo de opções de escolha única (rádios em formato de seletor segmentado em pílula)
 export default function OptionGroup({ nome, titulo, opcoes, valor, onChange }) {
   return (
     <fieldset>
       <legend className="font-semibold mb-2">{titulo}</legend>
-      <div className="inline-flex flex-wrap border border-marinho/30 rounded-md overflow-hidden">
-        {opcoes.map((opcao, i) => (
+      <div className="inline-flex flex-wrap gap-1 rounded-full bg-nevoa p-1">
+        {opcoes.map((opcao) => (
           <label
             key={opcao.valor}
-            className={`cursor-pointer px-4 py-2 font-semibold has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-sol-escuro has-[:focus-visible]:-outline-offset-2 ${
-              i > 0 ? 'border-l border-marinho/30' : ''
-            } ${valor === opcao.valor ? 'bg-marinho text-creme' : 'bg-white hover:bg-areia'}`}
+            className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-terra ${
+              valor === opcao.valor ? 'bg-floresta text-creme shadow-suave' : 'text-tinta/75 hover:bg-white/80 hover:text-tinta'
+            }`}
           >
             <input
               type="radio"

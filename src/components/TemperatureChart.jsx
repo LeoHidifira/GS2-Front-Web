@@ -1,6 +1,6 @@
 import { NIVEIS } from '../constants/riscos.js'
 
-// Gráfico de barras com a máxima de cada dia. Dias Alto ou Extremo ficam destacados e escritos (RF07).
+// Gráfico de barras com a máxima de cada dia. Dias Alto ou Extremo ficam em verde escuro e escritos (RF07).
 // Cada barra é um item de lista com o texto completo, então leitores de tela leem tudo.
 export default function TemperatureChart({ titulo, dias }) {
   const maior = Math.max(...dias.map((d) => d.valor), 1)
@@ -8,17 +8,33 @@ export default function TemperatureChart({ titulo, dias }) {
   const base = Math.max(menor - 5, 0)
 
   return (
-    <figure>
-      <figcaption className="font-semibold mb-4">{titulo}</figcaption>
-      <ol className="flex items-end gap-1.5 md:gap-3 h-64 md:h-80 border-b-2 border-marinho" aria-label={titulo}>
+    <figure className="vidro shadow-suave rounded-[2rem] p-5 md:p-8">
+      <figcaption className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <span className="text-lg font-semibold">{titulo}</span>
+        <span className="flex items-center gap-4 text-sm text-tinta/70" aria-hidden="true">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-salvia" /> Baixo ou Atenção
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-floresta" /> Alto ou Extremo
+          </span>
+        </span>
+      </figcaption>
+      <ol className="flex items-end gap-2 md:gap-4 h-64 md:h-80" aria-label={titulo}>
         {dias.map((dia) => {
           const altura = Math.max(((dia.valor - base) / (maior - base)) * 100, 8)
           const info = NIVEIS[dia.nivel]
           return (
-            <li key={dia.chave} className="flex-1 h-full flex flex-col justify-end items-center gap-1 min-w-0">
-              <span className="font-semibold text-sm tabular-nums">{dia.valorFormatado}</span>
+            <li key={dia.chave} className="flex-1 h-full flex flex-col justify-end items-center gap-2 min-w-0">
+              <span
+                className={`text-xs md:text-sm font-semibold tabular-nums whitespace-nowrap ${
+                  dia.destaque ? 'rounded-lg bg-floresta text-creme px-1.5 py-1 md:px-2' : ''
+                }`}
+              >
+                {dia.valorFormatado}
+              </span>
               <div
-                className={`w-full ${dia.destaque ? `${info.classeFundo} border-2 border-b-0 border-marinho` : 'bg-marinho/15'}`}
+                className={`w-full max-w-14 rounded-xl md:rounded-2xl ${dia.destaque ? 'bg-floresta' : 'bg-salvia'}`}
                 style={{ height: `${altura}%` }}
                 aria-hidden="true"
               />
@@ -29,11 +45,11 @@ export default function TemperatureChart({ titulo, dias }) {
           )
         })}
       </ol>
-      <ol className="flex gap-1.5 md:gap-3 mt-2" aria-hidden="true">
+      <ol className="flex gap-2 md:gap-4 mt-3" aria-hidden="true">
         {dias.map((dia) => (
           <li key={dia.chave} className="flex-1 min-w-0 text-center">
-            <span className="block text-xs leading-tight">{dia.rotulo}</span>
-            <span className={`block text-[0.7rem] mt-0.5 ${dia.destaque ? 'font-bold' : 'text-marinho/60'}`}>
+            <span className="block text-xs leading-tight text-tinta/75">{dia.rotulo}</span>
+            <span className={`block text-[0.7rem] mt-0.5 ${dia.destaque ? 'font-bold text-floresta-escuro' : 'text-tinta/55'}`}>
               {NIVEIS[dia.nivel].rotulo}
             </span>
           </li>

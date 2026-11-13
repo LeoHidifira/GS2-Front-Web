@@ -4,7 +4,7 @@ import Icone from './Icone.jsx'
 export default function FilterChips({ titulo, opcoes, estaAtivo, onSelecionar }) {
   return (
     <fieldset>
-      <legend className="text-sm font-semibold mb-2">{titulo}</legend>
+      <legend className="sobrescrito text-tinta/60 mb-3">{titulo}</legend>
       <div className="flex flex-wrap gap-2">
         {opcoes.map((opcao) => {
           const ativo = estaAtivo(opcao.valor)
@@ -14,8 +14,10 @@ export default function FilterChips({ titulo, opcoes, estaAtivo, onSelecionar })
               type="button"
               aria-pressed={ativo}
               onClick={() => onSelecionar(opcao.valor)}
-              className={`inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold border transition-colors ${
-                ativo ? 'bg-marinho text-creme border-marinho' : 'bg-white text-marinho border-marinho/25 hover:border-marinho'
+              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium border transition-colors ${
+                ativo
+                  ? 'bg-floresta text-creme border-floresta shadow-suave'
+                  : 'bg-white/70 text-tinta border-tinta/10 hover:border-tinta/30 hover:bg-white'
               }`}
             >
               {opcao.icone && <Icone nome={opcao.icone} className="w-4 h-4" />}

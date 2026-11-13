@@ -47,9 +47,9 @@ export default function SupportPointForm({ valoresIniciais, regioes, validar, on
         salvar('publicado')
       }}
       noValidate
-      className="bg-white border border-marinho/20 p-5 space-y-4"
+      className="vidro shadow-suave rounded-[2rem] p-6 md:p-7 space-y-5"
     >
-      <h2 className="font-titulo text-xl font-bold">{editando ? 'Editar ponto de apoio' : 'Novo ponto de apoio'}</h2>
+      <h2 className="font-titulo text-2xl">{editando ? 'Editar ponto de apoio' : 'Novo ponto de apoio'}</h2>
 
       <FormField id="ponto-nome" rotulo="Nome do ponto" erro={erros.nome}>
         {(props) => <input {...props} type="text" value={valores.nome} onChange={(e) => alterar('nome', e.target.value)} />}
@@ -101,11 +101,11 @@ export default function SupportPointForm({ valoresIniciais, regioes, validar, on
             <label key={recurso.id} className="flex items-center gap-2">
               <input
                 type="checkbox"
-                className="w-5 h-5 accent-marinho"
+                className="w-5 h-5 accent-floresta"
                 checked={valores.recursos.includes(recurso.id)}
                 onChange={() => alternarRecurso(recurso.id)}
               />
-              <Icone nome={recurso.icone} className="w-5 h-5 text-sol-escuro" />
+              <Icone nome={recurso.icone} className="w-5 h-5 text-musgo" />
               {recurso.nome}
             </label>
           ))}
@@ -114,7 +114,7 @@ export default function SupportPointForm({ valoresIniciais, regioes, validar, on
 
       <div aria-live="polite">
         {!podePublicar && faltasParaPublicar.length > 0 && (
-          <ul className="border-l-4 border-amber-500 bg-creme px-4 py-2 space-y-1 text-sm font-semibold">
+          <ul className="rounded-2xl bg-risco-atencao/70 px-4 py-3 space-y-1 text-sm font-semibold">
             {faltasParaPublicar.map((falta) => (
               <li key={falta.campo}>{falta.texto}</li>
             ))}

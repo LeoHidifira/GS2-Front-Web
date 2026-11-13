@@ -3,13 +3,18 @@ import Icone from './Icone.jsx'
 
 // Recursos do ponto com ícone + texto
 export default function ResourceList({ recursos, tamanho = 'normal' }) {
-  if (recursos.length === 0) return <span className="text-marinho/70">Nenhum recurso informado</span>
-  const icone = tamanho === 'grande' ? 'w-6 h-6' : 'w-4 h-4'
+  if (recursos.length === 0) return <span className="text-tinta/65">Nenhum recurso informado</span>
+  const grande = tamanho === 'grande'
   return (
-    <ul className={`flex flex-wrap gap-x-4 gap-y-1 ${tamanho === 'grande' ? 'text-lg' : 'text-sm'}`} aria-label="Recursos">
+    <ul className="flex flex-wrap gap-2" aria-label="Recursos">
       {recursos.map((id) => (
-        <li key={id} className="inline-flex items-center gap-1.5">
-          <Icone nome={RECURSOS[id].icone} className={`${icone} text-sol-escuro`} />
+        <li
+          key={id}
+          className={`inline-flex items-center gap-1.5 rounded-full bg-nevoa text-floresta-escuro font-medium ${
+            grande ? 'px-4 py-2' : 'px-2.5 py-1 text-sm'
+          }`}
+        >
+          <Icone nome={RECURSOS[id].icone} className={grande ? 'w-5 h-5' : 'w-4 h-4'} />
           {RECURSOS[id].nome}
         </li>
       ))}

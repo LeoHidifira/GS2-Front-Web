@@ -5,8 +5,10 @@ export default function RiskBadge({ nivel }) {
   const info = NIVEIS[nivel]
   if (!info) return null
   return (
-    <span className="inline-flex items-center gap-1.5 text-sm font-semibold whitespace-nowrap">
-      <span className={`w-3 h-3 rounded-sm border border-marinho/40 ${info.classeFundo}`} aria-hidden="true" />
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-semibold whitespace-nowrap text-tinta ${info.classeFundo}`}
+    >
+      <span className="w-1.5 h-1.5 rounded-full bg-tinta" aria-hidden="true" />
       Risco {info.rotulo}
     </span>
   )

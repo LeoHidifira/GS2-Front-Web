@@ -3,10 +3,10 @@ import Button from './Button.jsx'
 // Mensagem de erro com opção de tentar de novo
 export default function ErrorMessage({ mensagem, onTentarDeNovo }) {
   return (
-    <div role="alert" className="border-l-4 border-red-800 bg-white px-4 py-3">
-      <p className="font-semibold">{mensagem}</p>
+    <div role="alert" className="rounded-2xl border border-red-800/25 bg-white/80 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
+      <p className="font-semibold text-red-900">{mensagem}</p>
       {onTentarDeNovo && (
-        <Button variante="texto" tamanho="pequeno" className="mt-1" onClick={onTentarDeNovo}>
+        <Button variante="secundario" tamanho="pequeno" onClick={onTentarDeNovo}>
           Tentar de novo
         </Button>
       )}

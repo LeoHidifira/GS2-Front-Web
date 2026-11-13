@@ -23,8 +23,8 @@ export default function RegionForm({ valoresIniciais, validar, onSalvar, onCance
   }
 
   return (
-    <form onSubmit={enviar} noValidate className="bg-white border border-marinho/20 p-5 space-y-4">
-      <h2 className="font-titulo text-xl font-bold">{editando ? 'Editar região' : 'Nova região'}</h2>
+    <form onSubmit={enviar} noValidate className="vidro shadow-suave rounded-[2rem] p-6 md:p-7 space-y-5">
+      <h2 className="font-titulo text-2xl">{editando ? 'Editar região' : 'Nova região'}</h2>
 
       <FormField id="regiao-nome" rotulo="Nome da região" erro={erros.nome}>
         {(props) => <input {...props} type="text" value={valores.nome} onChange={(e) => alterar('nome', e.target.value)} />}
@@ -48,7 +48,7 @@ export default function RegionForm({ valoresIniciais, validar, onSalvar, onCance
       </div>
 
       <label className="flex items-center gap-3 font-semibold">
-        <input type="checkbox" className="w-5 h-5 accent-marinho" checked={valores.ativo} onChange={(e) => alterar('ativo', e.target.checked)} />
+        <input type="checkbox" className="w-5 h-5 accent-floresta" checked={valores.ativo} onChange={(e) => alterar('ativo', e.target.checked)} />
         Região ativa (aparece para o cidadão)
       </label>
 
