@@ -25,20 +25,20 @@ export default function DetalhePonto() {
     try {
       await avisarFechado()
       setAvisoEnviado(true)
-      setMensagem({ tipo: 'sucesso', texto: 'Obrigado por avisar! Vamos conferir este ponto.' })
+      setMensagem({ tipo: 'sucesso', texto: 'Aviso recebido. Obrigado!' })
     } catch (erro) {
       setMensagem({ tipo: 'erro', texto: mensagemDeErro(erro, 'enviar seu aviso') })
     }
   }
 
   const voltar = (
-    <Button para="/mapa" variante="texto" tamanho="pequeno" className="-ml-3">
-      <Icone nome="voltar" className="w-5 h-5" />
-      Voltar para a lista
+    <Button para="/mapa" variante="texto" tamanho="pequeno">
+      <Icone nome="voltar" className="w-4 h-4" />
+      Pontos de apoio
     </Button>
   )
 
-  if (loading) return <Loader texto="Carregando ponto de apoio..." />
+  if (loading) return <Loader />
   if (error) {
     return (
       <div className="space-y-4">
@@ -60,55 +60,55 @@ export default function DetalhePonto() {
   const linkMapa = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ponto.endereco}, São Paulo - SP`)}`
 
   return (
-    <div className="space-y-5">
+    <div>
       {voltar}
-
-      <div>
-        <h1 className="text-3xl font-bold">{ponto.nome}</h1>
-        <p className="mt-1 text-lg">{ponto.endereco}</p>
-      </div>
+      <h1 className="mt-2 font-titulo text-3xl md:text-4xl font-bold">{ponto.nome}</h1>
+      <p className="mt-1 text-lg text-marinho/85">{ponto.endereco}</p>
 
       {ponto.situacao === 'a_confirmar' && (
-        <p className="bg-risco-atencao rounded-xl px-4 py-3 font-semibold">
-          A confirmar: algumas pessoas avisaram que este ponto pode estar fechado.
+        <p className="mt-4 border-l-4 border-amber-500 bg-white px-4 py-2 font-semibold">
+          Pode estar fechado. Algumas pessoas avisaram e estamos conferindo.
         </p>
       )}
 
-      <dl className="bg-areia rounded-2xl p-5 space-y-4">
+      <div className="mt-6 grid gap-8 md:grid-cols-[3fr_2fr] md:gap-10">
         <div>
-          <dt className="font-semibold">Horário</dt>
-          <dd className="text-lg">
-            {aberto === true && <strong className="text-green-900">Aberto agora · </strong>}
-            {aberto === false && <strong className="text-red-900">Fechado agora · </strong>}
-            {formatarHorario(ponto.horario)}
-          </dd>
+          <dl className="divide-y divide-marinho/15 border-y border-marinho/15">
+            <div className="py-4 grid grid-cols-[7rem_1fr] gap-3">
+              <dt className="text-marinho/75">Horário</dt>
+              <dd className="text-lg">
+                {aberto === true && <strong className="text-green-800">Aberto agora · </strong>}
+                {aberto === false && <strong className="text-red-800">Fechado agora · </strong>}
+                {formatarHorario(ponto.horario)}
+              </dd>
+            </div>
+            <div className="py-4 grid grid-cols-[7rem_1fr] gap-3">
+              <dt className="text-marinho/75">Tem aqui</dt>
+              <dd>
+                <ResourceList recursos={ponto.recursos} tamanho="grande" />
+              </dd>
+            </div>
+          </dl>
+          <Button href={linkMapa} target="_blank" rel="noopener noreferrer" tamanho="grande" largura className="mt-5">
+            Como chegar
+            <span className="sr-only">(abre o Google Maps em outra aba)</span>
+            <Icone nome="rota" />
+          </Button>
         </div>
-        <div>
-          <dt className="font-semibold mb-2">O que tem aqui</dt>
-          <dd>
-            <ResourceList recursos={ponto.recursos} tamanho="grande" />
-          </dd>
-        </div>
-      </dl>
 
-      <Button href={linkMapa} target="_blank" rel="noopener noreferrer" tamanho="grande" largura>
-        <Icone nome="rota" />
-        Como chegar
-        <span className="sr-only">(abre o Google Maps em outra aba)</span>
-      </Button>
-
-      <section aria-labelledby="titulo-aviso" className="border-2 border-dashed border-marinho/25 rounded-2xl p-5">
-        <h2 id="titulo-aviso" className="text-lg font-bold">
-          Está fechado? Avise aqui
-        </h2>
-        <p className="mt-1">Seu aviso ajuda outras pessoas a não perderem a viagem.</p>
-        <Button variante="secundario" className="mt-3" onClick={enviarAviso} disabled={enviandoAviso || avisoEnviado}>
-          {enviandoAviso ? 'Enviando...' : avisoEnviado ? 'Aviso enviado' : 'Avisar que está fechado'}
-        </Button>
-        <div className="mt-3">
-          <StatusMessage mensagem={mensagem} />
-        </div>
-      </section>
+        <section aria-labelledby="titulo-aviso" className="md:border-l md:border-marinho/15 md:pl-8">
+          <h2 id="titulo-aviso" className="font-semibold text-lg">
+            Está fechado? Avise aqui
+          </h2>
+          <p className="mt-1 text-marinho/85">Se você chegou e o lugar estava fechado, avise. A gente confere.</p>
+          <Button variante="secundario" className="mt-3" onClick={enviarAviso} disabled={enviandoAviso || avisoEnviado}>
+            {enviandoAviso ? 'Enviando...' : avisoEnviado ? 'Aviso enviado' : 'Avisar que está fechado'}
+          </Button>
+          <div className="mt-3">
+            <StatusMessage mensagem={mensagem} />
+          </div>
+        </section>
+      </div>
     </div>
   )
 }

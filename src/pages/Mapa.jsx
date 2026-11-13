@@ -29,81 +29,81 @@ export default function Mapa() {
     usePontosDeApoio({ origem })
 
   return (
-    <div className="space-y-5">
-      <div>
-        <h1 className="text-3xl font-bold">Onde me refrescar</h1>
-        <p className="mt-1">
-          {localizacao.posicao
-            ? 'Distâncias a partir de onde você está.'
-            : regiao
-              ? `Distâncias a partir do centro de ${regiao.nome}.`
-              : 'Pontos de apoio da cidade.'}
-        </p>
-        <div className="mt-2 flex flex-wrap items-center gap-3">
-          {localizacao.posicao ? (
-            <Button variante="texto" tamanho="pequeno" onClick={localizacao.esquecerLocalizacao}>
-              Usar o centro do bairro
-            </Button>
-          ) : (
-            <Button variante="secundario" tamanho="pequeno" onClick={localizacao.pedirLocalizacao} disabled={localizacao.buscando}>
-              {localizacao.buscando ? 'Buscando sua localização...' : 'Usar minha localização'}
-            </Button>
-          )}
-          <span className="text-sm text-marinho/75">Sua localização não é salva.</span>
-        </div>
-        {localizacao.erro && (
-          <p role="status" className="mt-2 text-sm font-semibold">
-            {localizacao.erro}
-          </p>
-        )}
-      </div>
+    <div>
+      <h1 className="font-titulo text-3xl md:text-4xl font-bold">Onde me refrescar</h1>
 
-      <div className="space-y-4 bg-areia rounded-2xl p-4">
-        <FilterChips
-          titulo="O que você precisa?"
-          opcoes={opcoesRecursos}
-          estaAtivo={(valor) => filtros.recursos.includes(valor)}
-          onSelecionar={alternarRecurso}
-        />
-        <FilterChips
-          titulo="Distância"
-          opcoes={OPCOES_DISTANCIA}
-          estaAtivo={(valor) => filtros.distanciaMaxKm === valor}
-          onSelecionar={definirDistancia}
-        />
-      </div>
+      <div className="mt-5 grid gap-6 md:grid-cols-[17rem_1fr] md:gap-10">
+        <aside className="space-y-5 md:sticky md:top-20 md:self-start">
+          <div className="text-sm">
+            <p>
+              {localizacao.posicao
+                ? 'Distância a partir de onde você está.'
+                : regiao
+                  ? `Distância a partir do centro de ${regiao.nome}.`
+                  : 'Pontos de apoio da cidade.'}
+            </p>
+            {localizacao.posicao ? (
+              <Button variante="texto" tamanho="pequeno" onClick={localizacao.esquecerLocalizacao}>
+                Usar o centro do bairro
+              </Button>
+            ) : (
+              <Button variante="texto" tamanho="pequeno" onClick={localizacao.pedirLocalizacao} disabled={localizacao.buscando}>
+                {localizacao.buscando ? 'Buscando sua localização...' : 'Usar minha localização'}
+              </Button>
+            )}
+            <p className="text-marinho/70">Sua localização não fica salva.</p>
+            {localizacao.erro && (
+              <p role="status" className="mt-1 font-semibold">
+                {localizacao.erro}
+              </p>
+            )}
+          </div>
 
-      {loading && <Loader texto="Procurando pontos de apoio..." />}
-      {error && <ErrorMessage mensagem={error} onTentarDeNovo={recarregar} />}
-      {!loading && !error && pontosFiltrados.length === 0 && (
-        <EmptyState
-          titulo="Nenhum ponto encontrado com esses filtros."
-          descricao="Tire um filtro ou aumente a distância."
-        />
-      )}
-      {!loading && !error && pontosFiltrados.length > 0 && (
+          <FilterChips
+            titulo="Preciso de"
+            opcoes={opcoesRecursos}
+            estaAtivo={(valor) => filtros.recursos.includes(valor)}
+            onSelecionar={alternarRecurso}
+          />
+          <FilterChips
+            titulo="Distância"
+            opcoes={OPCOES_DISTANCIA}
+            estaAtivo={(valor) => filtros.distanciaMaxKm === valor}
+            onSelecionar={definirDistancia}
+          />
+        </aside>
+
         <section aria-labelledby="titulo-lista">
-          <h2 id="titulo-lista" className="text-lg font-bold mb-3">
-            {pontosFiltrados.length === 1 ? '1 ponto encontrado' : `${pontosFiltrados.length} pontos encontrados`}
-          </h2>
-          <ul className="space-y-3">
-            {pontosFiltrados.map((ponto) => (
-              <li key={ponto.id}>
-                <SupportPointCard
-                  id={ponto.id}
-                  nome={ponto.nome}
-                  endereco={ponto.endereco}
-                  distancia={formatarDistancia(ponto.distanciaKm)}
-                  horario={formatarHorario(ponto.horario)}
-                  aberto={estaAbertoAgora(ponto.horario)}
-                  aConfirmar={ponto.situacao === 'a_confirmar'}
-                  recursos={ponto.recursos}
-                />
-              </li>
-            ))}
-          </ul>
+          {loading && <Loader texto="Procurando pontos de apoio..." />}
+          {error && <ErrorMessage mensagem={error} onTentarDeNovo={recarregar} />}
+          {!loading && !error && pontosFiltrados.length === 0 && (
+            <EmptyState titulo="Nenhum ponto com esses filtros." descricao="Tire um filtro ou aumente a distância." />
+          )}
+          {!loading && !error && pontosFiltrados.length > 0 && (
+            <>
+              <h2 id="titulo-lista" className="text-sm text-marinho/75 pb-2 border-b-2 border-marinho">
+                {pontosFiltrados.length === 1 ? '1 ponto' : `${pontosFiltrados.length} pontos`}, do mais perto ao mais longe
+              </h2>
+              <ul className="divide-y divide-marinho/15">
+                {pontosFiltrados.map((ponto) => (
+                  <li key={ponto.id}>
+                    <SupportPointCard
+                      id={ponto.id}
+                      nome={ponto.nome}
+                      endereco={ponto.endereco}
+                      distancia={formatarDistancia(ponto.distanciaKm)}
+                      horario={formatarHorario(ponto.horario)}
+                      aberto={estaAbertoAgora(ponto.horario)}
+                      aConfirmar={ponto.situacao === 'a_confirmar'}
+                      recursos={ponto.recursos}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
-      )}
+      </div>
     </div>
   )
 }

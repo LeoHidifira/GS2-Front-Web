@@ -24,9 +24,9 @@ export default function Toggle({ id, rotulo, descricao, ligado, onAlternar }) {
       >
         <span
           aria-hidden="true"
-          className={`w-14 h-8 rounded-full p-1 transition-colors ${ligado ? 'bg-marinho' : 'bg-marinho/30'}`}
+          className={`w-11 h-7 rounded-full p-1 transition-colors ${ligado ? 'bg-marinho' : 'bg-marinho/30'}`}
         >
-          <span className={`block w-6 h-6 rounded-full bg-creme transition-transform ${ligado ? 'translate-x-6' : ''}`} />
+          <span className={`block w-5 h-5 rounded-full bg-creme transition-transform ${ligado ? 'translate-x-5' : ''}`} />
         </span>
         <span className="w-20 text-left">{ligado ? 'Ligado' : 'Desligado'}</span>
       </button>

@@ -29,13 +29,13 @@ export default function Historico() {
   }))
 
   return (
-    <div className="space-y-5">
-      <Button para="/" variante="texto" tamanho="pequeno" className="-ml-3">
-        <Icone nome="voltar" className="w-5 h-5" />
-        Voltar ao início
+    <div className="space-y-5 max-w-4xl">
+      <Button para="/" variante="texto" tamanho="pequeno">
+        <Icone nome="voltar" className="w-4 h-4" />
+        Início
       </Button>
 
-      {carregandoRegioes && <Loader texto="Carregando região..." />}
+      {carregandoRegioes && <Loader />}
       {erroRegioes && <ErrorMessage mensagem={erroRegioes} onTentarDeNovo={recarregarRegioes} />}
       {!carregandoRegioes && !erroRegioes && !regiao && (
         <EmptyState titulo="Não encontramos essa região." descricao="Escolha um bairro na tela inicial." />
@@ -44,8 +44,16 @@ export default function Historico() {
       {regiao && (
         <>
           <div>
-            <h1 className="text-3xl font-bold">Calor em {regiao.nome}</h1>
-            <p className="mt-1">Temperatura máxima dos últimos 7 dias.</p>
+            <h1 className="font-titulo text-3xl md:text-4xl font-bold">Últimos 7 dias em {regiao.nome}</h1>
+            {!loading && !error && dias.length > 0 && (
+              <p className="mt-1 text-lg">
+                {diasAltos === 0
+                  ? 'Nenhum dia com risco ALTO nesta semana.'
+                  : diasAltos === 1
+                    ? '1 dia com risco ALTO ou EXTREMO nesta semana.'
+                    : `${diasAltos} dias com risco ALTO ou EXTREMO nesta semana.`}
+              </p>
+            )}
           </div>
 
           {loading && <Loader texto="Buscando o histórico..." />}
@@ -53,16 +61,9 @@ export default function Historico() {
           {!loading && !error && dias.length === 0 && <EmptyState titulo="Ainda não há dados para esta região." />}
           {!loading && !error && dias.length > 0 && (
             <>
-              <p className="bg-areia rounded-xl px-4 py-3 font-semibold">
-                {diasAltos === 0
-                  ? 'Nenhum dia com risco ALTO nesta semana.'
-                  : diasAltos === 1
-                    ? '1 dia com risco ALTO ou EXTREMO nesta semana.'
-                    : `${diasAltos} dias com risco ALTO ou EXTREMO nesta semana.`}
-              </p>
-              <TemperatureChart titulo={`Máxima por dia em ${regiao.nome}`} dias={dadosGrafico} />
-              <p className="text-sm text-marinho/80">
-                O nível de cada dia usa a maior sensação térmica do dia (temperatura + umidade). Dados: Open-Meteo.
+              <TemperatureChart titulo="Temperatura máxima de cada dia" dias={dadosGrafico} />
+              <p className="text-sm text-marinho/75">
+                O nível do dia vem da maior sensação térmica (temperatura e umidade). Dados: Open-Meteo.
               </p>
             </>
           )}
