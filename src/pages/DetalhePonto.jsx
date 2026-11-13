@@ -10,6 +10,7 @@ import StatusMessage from '../components/StatusMessage.jsx'
 import usePontoDeApoio from '../hooks/usePontoDeApoio.js'
 import { mensagemDeErro } from '../utils/erros.js'
 import { estaAbertoAgora, formatarHorario, pontoEhVisivel } from '../utils/pontos.js'
+import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
 
 // Detalhe do ponto de apoio e aviso de "fechado" (RF02, RF12)
 export default function DetalhePonto() {
@@ -17,6 +18,7 @@ export default function DetalhePonto() {
   const { ponto, loading, error, recarregar, avisarFechado, enviandoAviso } = usePontoDeApoio(id)
   const [avisoEnviado, setAvisoEnviado] = useState(false)
   const [mensagem, setMensagem] = useState(null)
+  useTituloDaPagina(ponto?.nome ?? 'Ponto de apoio')
 
   async function enviarAviso() {
     setMensagem(null)

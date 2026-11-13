@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router'
 import Header from '../components/Header.jsx'
+import ScrollToTop from '../components/ScrollToTop.jsx'
 import { NAVEGACAO_PAINEL } from '../constants/textos.js'
 
 const classeLink = ({ isActive }) =>
@@ -11,6 +12,7 @@ const classeLink = ({ isActive }) =>
 export default function PainelLayout() {
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       <Header
         inicio="/painel"
         complemento={

@@ -12,11 +12,13 @@ import useRegioes from '../hooks/useRegioes.js'
 import { formatarDistancia } from '../utils/formatos.js'
 import { estaAbertoAgora, formatarHorario } from '../utils/pontos.js'
 import { escolherRegiaoAtual } from '../utils/regioes.js'
+import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
 
 const opcoesRecursos = LISTA_RECURSOS.map((r) => ({ valor: r.id, rotulo: r.nome, icone: r.icone }))
 
 // Pontos de apoio mais próximos, com filtros por recurso e distância (RF02, RF03)
 export default function Mapa() {
+  useTituloDaPagina('Onde me refrescar')
   const { preferencias } = usePreferencias()
   const { regioesAtivas } = useRegioes()
   const regiao = escolherRegiaoAtual(regioesAtivas, preferencias.bairroAtualId)

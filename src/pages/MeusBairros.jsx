@@ -7,6 +7,7 @@ import Toggle from '../components/Toggle.jsx'
 import { NIVEIS, NIVEIS_DE_ALERTA } from '../constants/riscos.js'
 import usePreferencias from '../hooks/usePreferencias.jsx'
 import useRegioes from '../hooks/useRegioes.js'
+import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
 
 const opcoesNivel = NIVEIS_DE_ALERTA.map((id) => ({ valor: id, rotulo: `${NIVEIS[id].rotulo} ou mais` }))
 const opcoesFonte = [
@@ -17,6 +18,7 @@ const opcoesFonte = [
 
 // Bairros acompanhados, alertas, nível mínimo e tamanho da letra (RF05). Tudo fica só neste aparelho.
 export default function MeusBairros() {
+  useTituloDaPagina('Meus bairros')
   const { preferencias, atualizar } = usePreferencias()
   const { regioesAtivas, loading, error, recarregar } = useRegioes()
 

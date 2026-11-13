@@ -13,9 +13,11 @@ import usePontosDeApoio from '../../hooks/usePontosDeApoio.js'
 import useRegioes from '../../hooks/useRegioes.js'
 import { mensagemDeErro } from '../../utils/erros.js'
 import { avisosNasUltimas24h, validarPonto } from '../../utils/pontos.js'
+import useTituloDaPagina from '../../hooks/useTituloDaPagina.js'
 
 // Painel – CRUD de pontos de apoio (RF09). "Publicar" só libera com os dados da RN04.
 export default function PainelPontos() {
+  useTituloDaPagina('Painel · Pontos de apoio')
   const { pontos, loading, error, recarregar, criar, atualizar, excluir } = usePontosDeApoio()
   const { regioes, loading: carregandoRegioes } = useRegioes()
   const [editando, setEditando] = useState(null) // null = formulário fechado; {} = novo ponto

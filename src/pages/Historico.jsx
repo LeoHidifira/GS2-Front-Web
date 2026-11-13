@@ -8,6 +8,7 @@ import TemperatureChart from '../components/TemperatureChart.jsx'
 import useHistoricoClima from '../hooks/useHistoricoClima.js'
 import useRegioes from '../hooks/useRegioes.js'
 import { formatarDia, formatarTemperatura } from '../utils/formatos.js'
+import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
 
 // Histórico de temperatura dos últimos 7 dias de uma região (RF07)
 export default function Historico() {
@@ -15,6 +16,7 @@ export default function Historico() {
   const { regioes, loading: carregandoRegioes, error: erroRegioes, recarregar: recarregarRegioes } = useRegioes()
   const regiao = regioes.find((r) => r.id === regiaoId)
   const { dias, loading, error, recarregar } = useHistoricoClima(regiao)
+  useTituloDaPagina(regiao ? `Histórico de ${regiao.nome}` : 'Histórico')
 
   const diasAltos = dias.filter((d) => d.destaque).length
   const dadosGrafico = dias.map((dia) => ({

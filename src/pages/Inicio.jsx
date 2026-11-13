@@ -14,9 +14,11 @@ import useRegioes from '../hooks/useRegioes.js'
 import { NIVEIS } from '../constants/riscos.js'
 import { escolherRegiaoAtual } from '../utils/regioes.js'
 import { formatarHora, formatarTemperatura } from '../utils/formatos.js'
+import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
 
 // Tela inicial: risco de calor do bairro, sem precisar rolar a página (RF01, RF06)
 export default function Inicio() {
+  useTituloDaPagina('Início')
   const { regioesAtivas, loading: carregandoRegioes, error: erroRegioes, recarregar } = useRegioes()
   const { preferencias, atualizar } = usePreferencias()
   const regiao = escolherRegiaoAtual(regioesAtivas, preferencias.bairroAtualId)

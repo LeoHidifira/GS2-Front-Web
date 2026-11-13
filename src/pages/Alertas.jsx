@@ -12,9 +12,11 @@ import usePreferencias from '../hooks/usePreferencias.jsx'
 import useRegioes from '../hooks/useRegioes.js'
 import { formatarHora } from '../utils/formatos.js'
 import { escolherRegiaoAtual } from '../utils/regioes.js'
+import useTituloDaPagina from '../hooks/useTituloDaPagina.js'
 
 // Alertas de calor dos bairros acompanhados (RF04, RF06)
 export default function Alertas() {
+  useTituloDaPagina('Alertas')
   const { preferencias } = usePreferencias()
   const { regioesAtivas, loading: carregandoRegioes, error: erroRegioes, recarregar: recarregarRegioes } = useRegioes()
 

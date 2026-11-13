@@ -10,6 +10,7 @@ import StatusMessage from '../../components/StatusMessage.jsx'
 import useRegioes from '../../hooks/useRegioes.js'
 import { mensagemDeErro } from '../../utils/erros.js'
 import { validarRegiao } from '../../utils/regioes.js'
+import useTituloDaPagina from '../../hooks/useTituloDaPagina.js'
 
 const colunas = [
   { chave: 'nome', titulo: 'Região' },
@@ -24,6 +25,7 @@ const colunas = [
 
 // Painel – CRUD de regiões monitoradas (RF08)
 export default function PainelRegioes() {
+  useTituloDaPagina('Painel · Regiões')
   const { regioes, loading, error, recarregar, criar, atualizar, excluir } = useRegioes()
   const [editando, setEditando] = useState(null) // null = formulário fechado; {} = nova região
   const [salvando, setSalvando] = useState(false)
