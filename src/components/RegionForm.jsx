@@ -23,8 +23,8 @@ export default function RegionForm({ valoresIniciais, validar, onSalvar, onCance
   }
 
   return (
-    <form onSubmit={enviar} noValidate className="bg-areia rounded-2xl p-5 space-y-4">
-      <h2 className="text-xl font-bold">{editando ? 'Editar região' : 'Nova região'}</h2>
+    <form onSubmit={enviar} noValidate className="bg-white border border-marinho/20 p-5 space-y-4">
+      <h2 className="font-titulo text-xl font-bold">{editando ? 'Editar região' : 'Nova região'}</h2>
 
       <FormField id="regiao-nome" rotulo="Nome da região" erro={erros.nome}>
         {(props) => <input {...props} type="text" value={valores.nome} onChange={(e) => alterar('nome', e.target.value)} />}

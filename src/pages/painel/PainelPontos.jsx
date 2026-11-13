@@ -33,7 +33,7 @@ export default function PainelPontos() {
     { chave: 'regiao', titulo: 'Região', render: (p) => nomeDaRegiao(p.regiaoId) },
     { chave: 'situacao', titulo: 'Situação', render: (p) => <SituationBadge situacao={p.situacao} /> },
     { chave: 'recursos', titulo: 'Recursos', render: (p) => <ResourceList recursos={p.recursos} /> },
-    { chave: 'avisos', titulo: 'Avisos de fechado (24 h)', render: (p) => avisosNasUltimas24h(p).length },
+    { chave: 'avisos', titulo: 'Avisos (24 h)', render: (p) => avisosNasUltimas24h(p).length },
   ]
 
   async function salvar(valores, situacao) {
@@ -74,10 +74,7 @@ export default function PainelPontos() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-bold">Pontos de apoio</h1>
-          <p className="text-marinho/80">Lugares com sombra, água ou banheiro abertos ao público.</p>
-        </div>
+        <h1 className="font-titulo text-3xl font-bold">Pontos de apoio</h1>
         {!editando && (
           <Button onClick={() => setEditando({})} disabled={carregandoRegioes}>
             Novo ponto
@@ -87,44 +84,49 @@ export default function PainelPontos() {
 
       <StatusMessage mensagem={mensagem} />
 
-      {editando && (
-        <SupportPointForm
-          key={editando.id ?? 'novo'}
-          valoresIniciais={
-            editando.id
-              ? { ...editando, latitude: String(editando.latitude), longitude: String(editando.longitude) }
-              : {}
-          }
-          regioes={regioes}
-          validar={validarPonto}
-          onSalvar={salvar}
-          onCancelar={() => setEditando(null)}
-          salvando={salvando}
-        />
-      )}
-
-      {loading && <Loader texto="Carregando pontos de apoio..." />}
-      {error && <ErrorMessage mensagem={error} onTentarDeNovo={recarregar} />}
-      {!loading && !error && pontos.length === 0 && (
-        <EmptyState titulo="Nenhum ponto cadastrado." descricao="Cadastre o primeiro ponto de apoio." />
-      )}
-      {!loading && !error && pontos.length > 0 && (
-        <DataTable
-          legenda="Pontos de apoio"
-          colunas={colunas}
-          linhas={pontos}
-          acoes={(ponto) => (
-            <>
-              <Button tamanho="pequeno" variante="secundario" onClick={() => setEditando(ponto)} aria-label={`Editar ${ponto.nome}`}>
-                Editar
-              </Button>
-              <Button tamanho="pequeno" variante="perigo" onClick={() => setParaExcluir(ponto)} aria-label={`Excluir ${ponto.nome}`}>
-                Excluir
-              </Button>
-            </>
+      <div className={editando ? 'grid gap-6 lg:grid-cols-[1fr_26rem] lg:items-start' : ''}>
+        <div className="min-w-0 space-y-4">
+          {loading && <Loader texto="Carregando pontos de apoio..." />}
+          {error && <ErrorMessage mensagem={error} onTentarDeNovo={recarregar} />}
+          {!loading && !error && pontos.length === 0 && (
+            <EmptyState titulo="Nenhum ponto cadastrado." descricao="Cadastre o primeiro ponto de apoio." />
           )}
-        />
-      )}
+          {!loading && !error && pontos.length > 0 && (
+            <DataTable
+              legenda="Pontos de apoio"
+              colunas={colunas}
+              linhas={pontos}
+              acoes={(ponto) => (
+                <>
+                  <Button tamanho="pequeno" variante="secundario" onClick={() => setEditando(ponto)} aria-label={`Editar ${ponto.nome}`}>
+                    Editar
+                  </Button>
+                  <Button tamanho="pequeno" variante="perigo" onClick={() => setParaExcluir(ponto)} aria-label={`Excluir ${ponto.nome}`}>
+                    Excluir
+                  </Button>
+                </>
+              )}
+            />
+          )}
+        </div>
+        {editando && (
+          <div className="order-first lg:order-last lg:sticky lg:top-20">
+            <SupportPointForm
+              key={editando.id ?? 'novo'}
+              valoresIniciais={
+                editando.id
+                  ? { ...editando, latitude: String(editando.latitude), longitude: String(editando.longitude) }
+                  : {}
+              }
+              regioes={regioes}
+              validar={validarPonto}
+              onSalvar={salvar}
+              onCancelar={() => setEditando(null)}
+              salvando={salvando}
+            />
+          </div>
+        )}
+      </div>
 
       <ConfirmDialog
         aberto={Boolean(paraExcluir)}

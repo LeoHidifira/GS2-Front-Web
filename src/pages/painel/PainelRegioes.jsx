@@ -71,48 +71,50 @@ export default function PainelRegioes() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-bold">Regiões monitoradas</h1>
-          <p className="text-marinho/80">Cadastre os bairros que a Solara acompanha.</p>
-        </div>
+        <h1 className="font-titulo text-3xl font-bold">Regiões monitoradas</h1>
         {!editando && <Button onClick={() => setEditando({})}>Nova região</Button>}
       </div>
 
       <StatusMessage mensagem={mensagem} />
 
-      {editando && (
-        <RegionForm
-          key={editando.id ?? 'nova'}
-          valoresIniciais={editando}
-          validar={validarRegiao}
-          onSalvar={salvar}
-          onCancelar={() => setEditando(null)}
-          salvando={salvando}
-        />
-      )}
-
-      {loading && <Loader texto="Carregando regiões..." />}
-      {error && <ErrorMessage mensagem={error} onTentarDeNovo={recarregar} />}
-      {!loading && !error && regioes.length === 0 && (
-        <EmptyState titulo="Nenhuma região cadastrada." descricao="Cadastre a primeira região para começar." />
-      )}
-      {!loading && !error && regioes.length > 0 && (
-        <DataTable
-          legenda="Regiões monitoradas"
-          colunas={colunas}
-          linhas={regioes}
-          acoes={(regiao) => (
-            <>
-              <Button tamanho="pequeno" variante="secundario" onClick={() => setEditando(regiao)} aria-label={`Editar ${regiao.nome}`}>
-                Editar
-              </Button>
-              <Button tamanho="pequeno" variante="perigo" onClick={() => setParaExcluir(regiao)} aria-label={`Excluir ${regiao.nome}`}>
-                Excluir
-              </Button>
-            </>
+      <div className={editando ? 'grid gap-6 lg:grid-cols-[1fr_26rem] lg:items-start' : ''}>
+        <div className="min-w-0 space-y-4">
+          {loading && <Loader texto="Carregando regiões..." />}
+          {error && <ErrorMessage mensagem={error} onTentarDeNovo={recarregar} />}
+          {!loading && !error && regioes.length === 0 && (
+            <EmptyState titulo="Nenhuma região cadastrada." descricao="Cadastre a primeira região para começar." />
           )}
-        />
-      )}
+          {!loading && !error && regioes.length > 0 && (
+            <DataTable
+              legenda="Regiões monitoradas"
+              colunas={colunas}
+              linhas={regioes}
+              acoes={(regiao) => (
+                <>
+                  <Button tamanho="pequeno" variante="secundario" onClick={() => setEditando(regiao)} aria-label={`Editar ${regiao.nome}`}>
+                    Editar
+                  </Button>
+                  <Button tamanho="pequeno" variante="perigo" onClick={() => setParaExcluir(regiao)} aria-label={`Excluir ${regiao.nome}`}>
+                    Excluir
+                  </Button>
+                </>
+              )}
+            />
+          )}
+        </div>
+        {editando && (
+          <div className="order-first lg:order-last lg:sticky lg:top-20">
+            <RegionForm
+              key={editando.id ?? 'nova'}
+              valoresIniciais={editando}
+              validar={validarRegiao}
+              onSalvar={salvar}
+              onCancelar={() => setEditando(null)}
+              salvando={salvando}
+            />
+          </div>
+        )}
+      </div>
 
       <ConfirmDialog
         aberto={Boolean(paraExcluir)}

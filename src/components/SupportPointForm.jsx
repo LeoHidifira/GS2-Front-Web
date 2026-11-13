@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { LISTA_RECURSOS } from '../constants/recursos.js'
 import Button from './Button.jsx'
+import Icone from './Icone.jsx'
 import FormField from './FormField.jsx'
 
 const VAZIO = { nome: '', endereco: '', regiaoId: '', latitude: '', longitude: '', horario: '', recursos: [] }
@@ -46,9 +47,9 @@ export default function SupportPointForm({ valoresIniciais, regioes, validar, on
         salvar('publicado')
       }}
       noValidate
-      className="bg-areia rounded-2xl p-5 space-y-4"
+      className="bg-white border border-marinho/20 p-5 space-y-4"
     >
-      <h2 className="text-xl font-bold">{editando ? 'Editar ponto de apoio' : 'Novo ponto de apoio'}</h2>
+      <h2 className="font-titulo text-xl font-bold">{editando ? 'Editar ponto de apoio' : 'Novo ponto de apoio'}</h2>
 
       <FormField id="ponto-nome" rotulo="Nome do ponto" erro={erros.nome}>
         {(props) => <input {...props} type="text" value={valores.nome} onChange={(e) => alterar('nome', e.target.value)} />}
@@ -104,7 +105,7 @@ export default function SupportPointForm({ valoresIniciais, regioes, validar, on
                 checked={valores.recursos.includes(recurso.id)}
                 onChange={() => alternarRecurso(recurso.id)}
               />
-              <span aria-hidden="true">{recurso.icone}</span>
+              <Icone nome={recurso.icone} className="w-5 h-5 text-sol-escuro" />
               {recurso.nome}
             </label>
           ))}
@@ -113,7 +114,7 @@ export default function SupportPointForm({ valoresIniciais, regioes, validar, on
 
       <div aria-live="polite">
         {!podePublicar && faltasParaPublicar.length > 0 && (
-          <ul className="bg-risco-atencao rounded-xl px-4 py-3 space-y-1 text-sm font-semibold">
+          <ul className="border-l-4 border-amber-500 bg-creme px-4 py-2 space-y-1 text-sm font-semibold">
             {faltasParaPublicar.map((falta) => (
               <li key={falta.campo}>{falta.texto}</li>
             ))}
